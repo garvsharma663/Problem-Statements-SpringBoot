@@ -1,41 +1,79 @@
-THE PROBLEM STATEMENT ----->
+Objective
 
-A Video Rental Inventory System
+Design and implement a Spring Boot RESTful web application that manages a video rental system.
+The system should allow users to add, view, update, check out/in, and delete videos through REST API endpoints.
 
-The goal of this project is to design and implement a simple inventory control system for a small video
-rental store. Define at least two classes: a class Video to model a video and a class VideoStore to model the
-actual store.
+Requirements
+1. Entity: Video
 
-Assume that an object of class Video has the following attributes:
+Each video record should have:
 
-1. A title;
-2. a flag to say whether it is checked out or not;
-   and 3. An average user rating.
+id (auto-generated)
 
-Add instance variables for each of these attributes to the Video class.
+title (String, required, max length 100)
 
-In addition, you will need to add methods corresponding to the following:
+checked (boolean, indicates if a video is checked out or not)
 
-1. being checked
-   out;
-2. being returned;
-   and 3. receiving a rating.
+rating (float, range 0.0 – 5.0)
 
-The VideoStore class will contain at least an instance variable that references an array of videos (say of
-length 10). The VideoStore will contain the following methods:
+2. Functional Requirements
 
-1. addVideo(String): add a new video (by title) to the inventory;
-2. checkOut(String): check out a video (by title);
-3. returnVideo(String): return a video to the store;
-4. receiveRating(String, int) : take a user's rating for a video; and 5.
-   listInventory(): list the whole inventory of videos in the store.
+The API should expose the following operations:
 
-Finally, create a VideoStoreLauncher class with a main() method which will test the functionality of your
-other two classes. It should allow the following.
+Operation	HTTP Method	Endpoint	Description
+Retrieve all videos	GET	/api/videos	Returns a list of all videos
+Retrieve a video by ID	GET	/api/videos/{id}	Returns details of a specific video
+Add a new video	POST	/api/videos	Adds a new video to the system
+Update a video’s rating	PUT	/api/videos/{id}/rating?rating={value}	Updates the rating of a specific video
+Check out / Check in a video	PUT	/api/videos/{id}/checkout?checked={true/false}	Changes the checked-out status
+Delete a video	DELETE	/api/videos/{id}	Removes a video from the system
+3. Business Logic
 
-1. Add 3 videos: "The Matrix", "Godfather II", "Star Wars Episode IV: A New Hope".
-2. Give several ratings to each video.
+When a video is first added:
 
-3. Rent each video at once and return it.
+It should be unchecked (checked = false) by default.
 
-List the inventory after "Godfather II" has been rented out.
+It should have a rating of 0.0 by default.
+
+The system should not allow null titles.
+
+Ratings should not exceed 5.0.
+
+All updates should be done via REST endpoints — no console input/output.
+
+4. Technical Requirements
+
+Framework: Spring Boot (latest stable version)
+
+Language: Java 17+
+
+Build Tool: Maven
+
+Validation: Jakarta Bean Validation (@NotNull, @Max, etc.)
+
+Dependency Injection: Use @Service, @RestController, and @Autowired
+
+Persistence: Initially in-memory list; can later be extended to use JPA with a database
+
+Testing Tool: Postman or cURL
+
+1. Expected JSON Format
+
+Example Request:
+
+POST /api/videos
+{
+"title": "Interstellar",
+"checked": false,
+"rating": 4.8
+}
+
+
+Example Response:
+
+{
+"id": 1,
+"title": "Interstellar",
+"checked": false,
+"rating": 4.8
+}

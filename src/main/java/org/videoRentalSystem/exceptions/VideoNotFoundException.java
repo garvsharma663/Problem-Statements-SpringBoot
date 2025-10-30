@@ -1,4 +1,7 @@
 package org.videoRentalSystem.exceptions;
 
-public class VideoNotFoundException {
+public class VideoNotFoundException extends RuntimeException{
+    public String VideoNotFound(){
+        return "Video not found";
+    }
 }
