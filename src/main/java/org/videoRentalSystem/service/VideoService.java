@@ -38,8 +38,9 @@ public class VideoService {
     }
 
     // Getting the Video by ID (It's primary key)
-    public Optional<Video> getVideoByID(Long id){
-        return videoRepo.findById(id);
+    public Video getVideoByID(Long id){
+        return videoRepo.findById(id)
+                .orElseThrow(VideoNotFoundException::new);
     }
 
 
