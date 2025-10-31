@@ -59,8 +59,8 @@ public class VideoService {
         return convertToDTO(video);
     }
 
-    public VideoDTO checked(String title, boolean currentState){
-        Video video = videoRepo.findByTitleIgnoreCase(title) // Finding video by Title
+    public VideoDTO checked(Long id, boolean currentState){
+        Video video = videoRepo.findById(id) // Finding video by Title
                 .orElseThrow(VideoNotFoundException::new);
         video.toggleChecked(currentState); // Flipping the check In/Out as method is called.
         videoRepo.save(video);
@@ -89,7 +89,7 @@ public class VideoService {
         return dto;
     }
 
-    public Video convertToVideo(VideoDTO dto){
+    private Video convertToVideo(VideoDTO dto){
         Video video = new Video();
         video.setTitle(dto.getTitle());
         video.setChecked(dto.isChecked()); // Lombok created this "getChecked" method as isChecked().

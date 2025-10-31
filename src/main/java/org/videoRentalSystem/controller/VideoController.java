@@ -1,10 +1,10 @@
 package org.videoRentalSystem.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.videoRentalSystem.dto.VideoDTO;
 import org.videoRentalSystem.exceptions.VideoNotFoundException;
 import org.videoRentalSystem.model.Video;
 import org.videoRentalSystem.service.VideoService;
@@ -23,10 +23,47 @@ public class VideoController
 //    }
 
     // We'll be using DTO from now on
+    @GetMapping
+    public ResponseEntity<List<VideoDTO>> getAllVideos(){
+        List<VideoDTO> videoDTOList = videoService.allVideos();
+        return ResponseEntity.ok(videoDTOList);
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<VideoDTO> getVideoById(@PathVariable Long id){
+        VideoDTO videoDTO = videoService.getVideoByID(id);
+        return ResponseEntity.ok(videoDTO);
+    }
 
+    @PostMapping()
+    public ResponseEntity<VideoDTO> addVideo(@Valid @RequestBody VideoDTO videoDTO){
+        VideoDTO newVideo = videoService.addVideo(videoDTO);
+        return ResponseEntity.ok(newVideo);
+    }
 
+    @GetMapping("/title/{title}")
+    public ResponseEntity<VideoDTO> getVideoByTitle(@PathVariable String title){
+        VideoDTO videoDTO = videoService.getVideoByTitle(title);
+        return ResponseEntity.ok(videoDTO);
+    }
 
+    @PutMapping("/{id}/rating/{rating}")
+    public ResponseEntity<VideoDTO> updateVideoRating(@Valid @PathVariable float rating,@Valid @PathVariable Long id){
+        VideoDTO videoDTO = videoService.updateRating(rating, id);
+        return ResponseEntity.ok(videoDTO);
+    }
+
+    @PostMapping("/{id}/toggle/{currentState}")
+    public ResponseEntity<VideoDTO> toggleChecked(@PathVariable Long id,@PathVariable boolean currentState){
+        VideoDTO videoDTO = videoService.checked(id, currentState);
+        return ResponseEntity.ok(videoDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteVideo(@PathVariable Long id){
+        videoService.deleteVideo(id);
+        return ResponseEntity.ok("Video deletion SUCCESS !!!");
+    }
 
 
 }
