@@ -1,10 +1,8 @@
-package org.videoRentalSystem.repository;
+package app.videoRentalSystem.repository;
 
-import jdk.dynalink.linker.LinkerServices;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.videoRentalSystem.model.Video;
+import app.videoRentalSystem.model.Video;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface VideoRepo extends JpaRepository<Video, Long> {

@@ -1,13 +1,11 @@
-package org.videoRentalSystem.controller;
+package app.videoRentalSystem.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.videoRentalSystem.dto.VideoDTO;
-import org.videoRentalSystem.exceptions.VideoNotFoundException;
-import org.videoRentalSystem.model.Video;
-import org.videoRentalSystem.service.VideoService;
+import app.videoRentalSystem.dto.VideoDTO;
+import app.videoRentalSystem.service.VideoService;
 
 import java.util.List;
 
@@ -64,6 +62,4 @@ public class VideoController
         videoService.deleteVideo(id);
         return ResponseEntity.ok("Video deletion SUCCESS !!!");
     }
-
-
 }

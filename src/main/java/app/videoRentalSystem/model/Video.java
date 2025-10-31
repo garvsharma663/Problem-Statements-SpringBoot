@@ -1,4 +1,4 @@
-package org.videoRentalSystem.model;
+package app.videoRentalSystem.model;
 
 
 import jakarta.persistence.*;

@@ -1,15 +1,12 @@
-package org.videoRentalSystem.service;
+package app.videoRentalSystem.service;
 
-import org.hibernate.annotations.OptimisticLock;
-import org.hibernate.annotations.processing.Suppress;
 import org.springframework.stereotype.Service;
-import org.videoRentalSystem.dto.VideoDTO;
-import org.videoRentalSystem.exceptions.VideoNotFoundException;
-import org.videoRentalSystem.model.Video;
-import org.videoRentalSystem.repository.VideoRepo;
+import app.videoRentalSystem.dto.VideoDTO;
+import app.videoRentalSystem.exceptions.VideoNotFoundException;
+import app.videoRentalSystem.model.Video;
+import app.videoRentalSystem.repository.VideoRepo;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
