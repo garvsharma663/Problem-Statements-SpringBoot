@@ -3,12 +3,14 @@ package org.videoRentalSystem.service;
 import org.hibernate.annotations.OptimisticLock;
 import org.hibernate.annotations.processing.Suppress;
 import org.springframework.stereotype.Service;
+import org.videoRentalSystem.dto.VideoDTO;
 import org.videoRentalSystem.exceptions.VideoNotFoundException;
 import org.videoRentalSystem.model.Video;
 import org.videoRentalSystem.repository.VideoRepo;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class VideoService {
@@ -20,52 +22,81 @@ public class VideoService {
     }
 
     // Get ALL Videos
-    public List<Video> allVideos(){
-        return videoRepo.findAll(); // Returns in JSON format as it's not plain String or Integer.
-
+    public List<VideoDTO> allVideos(){
+        List<Video> videoList = videoRepo.findAll();
+        return videoList.stream()
+                .map(this::convertToDTO).collect(Collectors.toList()); // Or just use .map((video)->convertToDTO(video).collect(Collectors.toList());
     }
 
     // Add a video
-    public void addVideo(Video video){
+    public VideoDTO addVideo(VideoDTO videoDTO){
+        Video video = convertToVideo(videoDTO);
         videoRepo.save(video);
+        return convertToDTO(video);
     }
 
 
     // Get a Video by its Title
-    public Video getVideoByTitle(String title){
-        return videoRepo.findByTitleIgnoreCase(title)
-                .orElseThrow(VideoNotFoundException::new); // Or just use lambda ()-> new VideoNotFoundException().
+    public VideoDTO getVideoByTitle(String title){
+           Video video = videoRepo.findByTitleIgnoreCase(title)
+                   .orElseThrow(VideoNotFoundException::new);
+           return convertToDTO(video);
     }
 
     // Getting the Video by ID (It's primary key)
-    public Video getVideoByID(Long id){
-        return videoRepo.findById(id)
+    public VideoDTO getVideoByID(Long id){
+        Video video = videoRepo.findById(id)
                 .orElseThrow(VideoNotFoundException::new);
+        return convertToDTO(video);
     }
 
 
-    public Video updateRating(float rating, Long id){
+    public VideoDTO updateRating(float rating, Long id){
         Video video = videoRepo.findById(id) // Storing the video we got so that we can perform the update operation using the setter.
                 .orElseThrow(VideoNotFoundException::new); // Exception Handling.
         video.updateRating(rating); // Updating the Video's rating.
-        return videoRepo.save(video); // Saving the updated rating in the memory.
+        videoRepo.save(video);// Saving the updated rating in the memory.
+        return convertToDTO(video);
     }
 
-    public Video checked(String title, boolean currentState){
+    public VideoDTO checked(String title, boolean currentState){
         Video video = videoRepo.findByTitleIgnoreCase(title) // Finding video by Title
                 .orElseThrow(VideoNotFoundException::new);
         video.toggleChecked(currentState); // Flipping the check In/Out as method is called.
-        return videoRepo.save(video);
+        videoRepo.save(video);
+        return convertToDTO(video);
     }
 
     // Deletion of a Video
     public void deleteVideo(Long id){
-        if(videoRepo.existsById(id)){
+        if(!videoRepo.existsById(id)){
             throw new VideoNotFoundException();
         }
 
         videoRepo.deleteById(id);
     }
+
+    // Creating a Video
+
+
+    // Helper Methods for DTO conversion (for saving purpose)
+    private VideoDTO convertToDTO(Video video){
+        VideoDTO dto = new VideoDTO();
+        dto.setId(video.getId());
+        dto.setRating(video.getRating());
+        dto.setTitle(video.getTitle());
+        dto.setChecked(video.isChecked());
+        return dto;
+    }
+
+    public Video convertToVideo(VideoDTO dto){
+        Video video = new Video();
+        video.setTitle(dto.getTitle());
+        video.setChecked(dto.isChecked()); // Lombok created this "getChecked" method as isChecked().
+        video.setRating(dto.getRating());
+        return video;
+    }
+
 
 
 

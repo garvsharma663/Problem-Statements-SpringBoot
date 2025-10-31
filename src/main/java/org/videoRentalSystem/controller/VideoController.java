@@ -22,6 +22,9 @@ public class VideoController
 //        this.videoService = videoService;
 //    }
 
+    // We'll be using DTO from now on
+
+
 
 
 
