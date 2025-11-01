@@ -1,10 +1,10 @@
-package app.videoRentalSystem.service;
+package app.backend.videoRentalSystemBackend.service;
 
 import org.springframework.stereotype.Service;
-import app.videoRentalSystem.dto.VideoDTO;
-import app.videoRentalSystem.exceptions.VideoNotFoundException;
-import app.videoRentalSystem.model.Video;
-import app.videoRentalSystem.repository.VideoRepo;
+import app.backend.videoRentalSystemBackend.dto.VideoDTO;
+import app.backend.videoRentalSystemBackend.exceptions.VideoNotFoundException;
+import app.backend.videoRentalSystemBackend.model.Video;
+import app.backend.videoRentalSystemBackend.repository.VideoRepo;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,9 +72,6 @@ public class VideoService {
 
         videoRepo.deleteById(id);
     }
-
-    // Creating a Video
-
 
     // Helper Methods for DTO conversion (for saving purpose)
     private VideoDTO convertToDTO(Video video){

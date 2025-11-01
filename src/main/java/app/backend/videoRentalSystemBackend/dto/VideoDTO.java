@@ -1,4 +1,4 @@
-package app.videoRentalSystem.dto;
+package app.backend.videoRentalSystemBackend.dto;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

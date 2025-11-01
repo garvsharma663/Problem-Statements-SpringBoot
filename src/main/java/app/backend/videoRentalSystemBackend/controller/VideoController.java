@@ -1,11 +1,11 @@
-package app.videoRentalSystem.controller;
+package app.backend.videoRentalSystemBackend.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import app.videoRentalSystem.dto.VideoDTO;
-import app.videoRentalSystem.service.VideoService;
+import app.backend.videoRentalSystemBackend.dto.VideoDTO;
+import app.backend.videoRentalSystemBackend.service.VideoService;
 
 import java.util.List;
 

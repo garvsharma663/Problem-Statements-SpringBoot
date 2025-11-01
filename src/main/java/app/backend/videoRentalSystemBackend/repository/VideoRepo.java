@@ -1,7 +1,7 @@
-package app.videoRentalSystem.repository;
+package app.backend.videoRentalSystemBackend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import app.videoRentalSystem.model.Video;
+import app.backend.videoRentalSystemBackend.model.Video;
 
 import java.util.Optional;
 
