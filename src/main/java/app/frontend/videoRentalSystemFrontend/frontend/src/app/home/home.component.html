@@ -1,1 +1,12 @@
-<p>home works!</p>
+<h2>🎥 Video List</h2>
+
+<ul>
+  @for (v of videos; track v.id) {
+    <li>{{ v.title }} — ⭐ {{ v.rating }}</li>
+  }
+</ul>
+
+<h3>Add New Video</h3>
+<input [(ngModel)]="newVideo.title" placeholder="Title" />
+<input [(ngModel)]="newVideo.rating" type="number" placeholder="Rating" />
+<button (click)="addVideo()">Add</button>

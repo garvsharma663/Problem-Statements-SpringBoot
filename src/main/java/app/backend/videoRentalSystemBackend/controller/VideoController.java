@@ -57,7 +57,7 @@ public class VideoController
         return ResponseEntity.ok(videoDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteVideo(@PathVariable Long id){
         videoService.deleteVideo(id);
         return ResponseEntity.ok("Video deletion SUCCESS !!!");

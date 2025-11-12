@@ -13,8 +13,7 @@ import lombok.Setter;
 @Table(name = "videos")
 public class Video {
     @Getter @Id
-    @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     // Title of the Video.
